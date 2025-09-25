@@ -32,6 +32,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # New Step: Setup Node.js and run the build
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -44,12 +45,15 @@ jobs:
       - name: Build project
         run: npm run build
 
+      # New Step: Create the 404.html fallback for SPA routing
       - name: Create 404.html for SPA fallback
         run: cp dist/index.html dist/404.html
 
+      # Original Step: Use the built 'dist' folder for the deployment artifact
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # This is the corrected line: it uploads only the built 'dist' folder
           path: './dist' 
           
       - name: Deploy to GitHub Pages
